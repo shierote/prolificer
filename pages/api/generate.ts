@@ -18,6 +18,7 @@ export default async function (req, res) {
 
   const level = req.body.level || "";
   const original = req.body.original || "";
+  console.log({ level, original });
   if (level.trim().length === 0 || original.trim().length === 0) {
     res.status(400).json({
       error: {
@@ -55,7 +56,15 @@ export default async function (req, res) {
 }
 
 function generatePrompt(level, original) {
-  return `以下の文章を${level}が理解できるレベルに修正してください。
+  return `あなたはあらゆる文章をさまざまな知的レベルで言い換えられる優れた説明者です。
+知的レベル0~100があるとして、次のような形で、タスクを遂行します。
+
+知的レベル0: 言葉を噛みくださいて、幼稚園児でもわかるような言葉を中心に説明します。必要であればわかりやすいものに例えて説明します。
+知的レベル50: 与えられた文章を専門知識を持たない一般人が理解できるレベルに修正して説明します。
+知的レベル100: 専門家でようやく理解できるレベルの言葉で説明します。
+
+
+以下の文章を知的レベル${level}で説明し直してください。
 
 ${original}`;
 }
