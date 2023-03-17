@@ -12,6 +12,7 @@ import LevelSlider from "./LevelSlider";
 import OutputText from "./OutputText";
 
 async function fetchLeveledText(level: number, originalText: string) {
+  console.log({ level, originalText });
   const response = await fetch("/api/generate", {
     method: "POST",
     headers: {

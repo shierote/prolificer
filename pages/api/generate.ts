@@ -5,6 +5,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+export const config = {
+  runtime: process.env.NODE_ENV === "development" ? "nodejs" : "edge",
+};
+
 export default async function (req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
@@ -17,12 +21,19 @@ export default async function (req, res) {
   }
 
   const level = req.body.level || "";
-  const original = req.body.original || "";
-  console.log({ level, original });
-  if (level.trim().length === 0 || original.trim().length === 0) {
+  if (level.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "レベルかオリジナルのテキストが空です。",
+        message: "レベルが空です。",
+      },
+    });
+    return;
+  }
+  const original = req.body.original || "";
+  if (original.trim().length === 0) {
+    res.status(400).json({
+      error: {
+        message: "元のテキストが空です。",
       },
     });
     return;

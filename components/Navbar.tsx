@@ -20,19 +20,10 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Box bg={"teal.500"} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <Text as={"b"} color="white">
